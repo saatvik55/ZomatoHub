@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/restaurants")
@@ -14,23 +15,16 @@ public class RestaurantController {
     @Autowired
     private RestaurantService restaurantService;
 
-    // Endpoint to save a single restaurant
-    @PostMapping
-    public Restaurant addRestaurant(@RequestBody Restaurant restaurant) {
-        return restaurantService.saveRestaurant(restaurant);
-    }
-
-    // Endpoint to save multiple restaurants
-    @PostMapping("/bulk")
-    public List<Restaurant> addRestaurants(@RequestBody List<Restaurant> restaurants) {
-        return restaurantService.saveAllRestaurants(restaurants);
-    }
-
-    // Endpoint to get all restaurants
     @GetMapping
     public List<Restaurant> getAllRestaurants() {
         return restaurantService.getAllRestaurants();
     }
 
-    // Add more endpoints as needed
+    @GetMapping("/{id}")
+    public Optional<Restaurant> getRestaurantById(@PathVariable Integer id) {
+        Optional<Restaurant> restaurant = restaurantService.getRestaurantById(id);
+        System.out.println("Fetched Restaurant: " + restaurant);  // Debug log
+        return restaurant;
+    }
+
 }

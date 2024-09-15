@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class RestaurantService {
@@ -13,20 +14,11 @@ public class RestaurantService {
     @Autowired
     private RestaurantRepository restaurantRepository;
 
-    // Method to save a single restaurant
-    public Restaurant saveRestaurant(Restaurant restaurant) {
-        return restaurantRepository.save(restaurant);
-    }
-
-    // Method to save multiple restaurants
-    public List<Restaurant> saveAllRestaurants(List<Restaurant> restaurants) {
-        return restaurantRepository.saveAll(restaurants);
-    }
-
-    // Method to get all restaurants
     public List<Restaurant> getAllRestaurants() {
         return restaurantRepository.findAll();
     }
 
-    // Add more methods as needed
+    public Optional<Restaurant> getRestaurantById(Integer id) {
+        return restaurantRepository.findById(id);
+    }
 }
